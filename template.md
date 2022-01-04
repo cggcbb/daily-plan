@@ -3,6 +3,7 @@
 #### 重要的事
 
 - [x] 整理 5.0.3 版本 xMind
+- [x] 初识 elasticsearch
 
 #### 学习
 
