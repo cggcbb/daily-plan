@@ -8,6 +8,7 @@
 #### 学习
 
 - [x] github api 创建 issue 和 comment
+- [x] github api 获取 issue 和 comment
 
 #### 其他
 
