@@ -5568,12 +5568,14 @@ const content = createTemplateContent('./template.md')
   // user info
   const { login: user } = await pullUserInfo()
   if (!user) {
+    console.log('user authorization error')
     return
   }
 
-  // pull all issues
+  // pull today issue
   const issue = await getTodayIssue(today)
   if (!issue) {
+    console.log('not found today issue')
     return
   }
   // check had commented
