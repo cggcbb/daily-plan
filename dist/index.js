@@ -14,6 +14,8 @@ const isLocal = process.env.MODE === 'local'
 const token = isLocal
   ? fs.readFileSync('./token.txt', { encoding: 'utf8' })
   : process.env['G_TOKEN']
+
+console.log(token)
 // octokit instance
 const octokit = new Octokit({ auth: token })
 
