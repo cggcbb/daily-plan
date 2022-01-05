@@ -36,7 +36,9 @@ const content = createTemplateContent('./template.md')
   const comment = await hasCommented(issue, user)
   if (comment) {
     await updateComment(comment, content)
+    console.log(`comment update success, body: \n\n ${content}`)
   } else {
     await createComment(issue, content)
+    console.log(`comment create success, body: \n\n ${content}`)
   }
 })()
