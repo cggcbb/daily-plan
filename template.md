@@ -1,16 +1,15 @@
-### 【每日计划】 2022-01-04
+### 【每日计划】 2022-01-05
 
 #### 重要的事
 
-- [x] 整理 5.0.3 版本 xMind
-- [x] 初识 elasticsearch
+- [ ] iview 日期，时间联动 Bug.
+- [ ] 整理项目 5.0.3 版本 首页逻辑，及代码实现。
 
 #### 学习
 
-- [x] github api 创建 issue 和 comment
-- [x] github api 获取 issue 和 comment
+- [ ] github api
+- [ ] 初识 elasticsearch
 
 #### 其他
 
-- [x] 骑车半小时
-- [x] 和朋友来几局 樱熊联萌。
+- [ ] 骑车半小时
