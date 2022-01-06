@@ -9,6 +9,7 @@
 
 - [ ] github 每日自动创建 issue.
 - [ ] 一小时 typescript.
+- [ ] 一小时 B 站.
 
 #### 其他
 
