@@ -96,7 +96,7 @@ async function createComment(issue, body) {
 // update comment
 async function updateComment(comment, body) {
   const [err, result] = await handleResponse(
-    octokit.request('PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}1', {
+    octokit.request('PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}', {
       ...repo,
       comment_id: comment.id,
       body
