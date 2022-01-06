@@ -21,7 +21,7 @@ const octokit = new Octokit({ auth: token })
 // repo
 const repo = {
   owner: 'cggcbb',
-  repo: 'daily-plan1'
+  repo: 'daily-plan'
 }
 
 // user info
@@ -7585,6 +7585,7 @@ const {
 
 // today date
 const today = createToday()
+console.log(today)
 
 // template content
 const content = createTemplateContent('./template.md')
