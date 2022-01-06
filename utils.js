@@ -61,6 +61,10 @@ function createIssueBody() {
   return '### 记录每日计划'
 }
 
+function createFormatTime(date) {
+  return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
+}
+
 module.exports = {
   handleResponse,
   createToday,
@@ -68,5 +72,6 @@ module.exports = {
   isContainTitle,
   createTemplateContent,
   createIssueTitle,
-  createIssueBody
+  createIssueBody,
+  createFormatTime
 }

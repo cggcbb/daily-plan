@@ -13,7 +13,8 @@ const {
   isContainTitle,
   createTemplateContent,
   createIssueTitle,
-  createIssueBody
+  createIssueBody,
+  createFormatTime
 } = require('./utils')
 
 // today date
@@ -28,7 +29,7 @@ const log = console.log
   // check today template
   const isTodayTemplate = await isContainTitle('./template.md', today)
   if (!isTodayTemplate) {
-    log(chalk.red('not found today template ...'))
+    log(chalk.red(`not found today's template ...`))
     return
   }
 
@@ -38,30 +39,38 @@ const log = console.log
     log(chalk.red('user authorization error ...'))
     return
   }
+  log(chalk.green(`load user success! username: ${user}`))
 
   // pull today issue
   const issue = await getTodayIssue(today)
   if (!issue) {
-    log(chalk.red('not found today issue ...'))
-    log(chalk.cyan('creating issue...'))
+    log(chalk.redBright(`not found today's issue ...`))
+    log(chalk.yellowBright(`creating today's issue...`))
 
     // if not found today issue, auto create issue
     const result = await createIssue(createIssueTitle(), createIssueBody())
     if (result.id && result.title) {
-      log(chalk.green(`create issue success, title: ${result.title}, body: ${result.body}`))
+      log(chalk.greenBright(`create issue success! title: ${result.title}, body: ${result.body}`))
     } else {
-      log(chalk.red(`create issue error, error message: ${JSON.stringify(result)}`))
+      log(chalk.redBright(`create issue error! error message: ${JSON.stringify(result)}`))
     }
     return
   }
+  log(
+    chalk.greenBright(
+      `load today issue success! issue's title: ${issue.title}, create at: ${createFormatTime(
+        issue.created_at
+      )}`
+    )
+  )
 
   // check had commented
   const comment = await hasCommented(issue, user)
   if (comment) {
     await updateComment(comment, content)
-    log(chalk.green(`comment update success, body: \n\n ${content}`))
+    log(chalk.greenBright(`comment update success! update body: \n\n ${content}`))
   } else {
     await createComment(issue, content)
-    log(chalk.green(`comment create success, body: \n\n ${content}`))
+    log(chalk.greenBright(`comment create success! create body: \n\n ${content}`))
   }
 })()
