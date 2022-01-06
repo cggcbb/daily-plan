@@ -15,15 +15,15 @@ function handleResponse(promise, errorExtra) {
     })
 }
 
-function createToday() {
+function createToday(rule, date) {
   // check isLocal
   const isLocal = process.env.MODE === 'local'
   if (isLocal) {
-    return dayjs().format('YYYY-MM-DD')
+    return dayjs(date).format(rule)
   }
   // 代码在github上运行，运行是 UTC 时区
   // 中国时区 = UTC时区 + 8小时
-  return dayjs().add(8, 'h').format('YYYY-MM-DD')
+  return dayjs(date).add(8, 'h').format(rule)
 }
 
 function exist(arr, compare) {
@@ -61,10 +61,6 @@ function createIssueBody() {
   return '### 记录每日计划'
 }
 
-function createFormatTime(date) {
-  return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
-}
-
 module.exports = {
   handleResponse,
   createToday,
@@ -72,6 +68,5 @@ module.exports = {
   isContainTitle,
   createTemplateContent,
   createIssueTitle,
-  createIssueBody,
-  createFormatTime
+  createIssueBody
 }

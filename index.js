@@ -13,13 +13,11 @@ const {
   isContainTitle,
   createTemplateContent,
   createIssueTitle,
-  createIssueBody,
-  createFormatTime
+  createIssueBody
 } = require('./utils')
 
 // today date
-const today = createToday()
-console.log(today)
+const today = createToday('YYYY-MM-DD')
 
 // template content
 const content = createTemplateContent('./template.md')
@@ -59,7 +57,8 @@ const log = console.log
   }
   log(
     chalk.greenBright(
-      `load today issue success! issue's title: ${issue.title}, create at: ${createFormatTime(
+      `load today issue success! issue's title: ${issue.title}, create at: ${createToday(
+        'YYYY-MM-DD HH:mm:ss',
         issue.created_at
       )}`
     )
