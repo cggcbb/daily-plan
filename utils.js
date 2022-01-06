@@ -1,6 +1,7 @@
 const dayjs = require('dayjs')
 const fs = require('fs')
 const readline = require('readline')
+const chalk = require('chalk')
 
 function handleResponse(promise, errorExtra) {
   return promise
@@ -15,7 +16,14 @@ function handleResponse(promise, errorExtra) {
 }
 
 function createToday() {
-  return dayjs().format('YYYY-MM-DD')
+  // check isLocal
+  const isLocal = process.env.MODE === 'local'
+  if (isLocal) {
+    return dayjs().format('YYYY-MM-DD')
+  }
+  // 代码在github上运行，运行是 UTC 时区
+  // 中国时区 = UTC时区 + 8小时
+  return dayjs().add(8, 'h').format('YYYY-MM-DD')
 }
 
 function exist(arr, compare) {
@@ -45,10 +53,20 @@ async function readFirstLine(pathToFile) {
   return line
 }
 
+function createIssueTitle() {
+  return `【每日计划】 ${createToday()}`
+}
+
+function createIssueBody() {
+  return '### 记录每日计划'
+}
+
 module.exports = {
   handleResponse,
   createToday,
   exist,
   isContainTitle,
-  createTemplateContent
+  createTemplateContent,
+  createIssueTitle,
+  createIssueBody
 }

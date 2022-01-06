@@ -14,8 +14,8 @@ const octokit = new Octokit({ auth: token })
 
 // repo
 const repo = {
-  owner: 'cuixiaorui',
-  repo: 'study-every-day'
+  owner: 'cggcbb',
+  repo: 'daily-plan'
 }
 
 // user info
@@ -25,6 +25,18 @@ async function pullUserInfo() {
     return err
   }
   return result.data
+}
+
+// create a issue
+async function createIssue(title, body) {
+  const [err, result] = await handleResponse(
+    octokit.request('POST /repos/{owner}/{repo}/issues', {
+      ...repo,
+      title,
+      body
+    })
+  )
+  return err ? err : result.data
 }
 
 // pull all issues
@@ -97,6 +109,7 @@ module.exports = {
   pullUserInfo,
   getTodayIssue,
   pullAllComments,
+  createIssue,
   hasCommented,
   createComment,
   updateComment
