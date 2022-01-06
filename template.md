@@ -2,13 +2,14 @@
 
 #### 重要的事
 
-- [x] iview 日期，时间联动 Bug.
+- [ ] 重构昨天写好的 iview 日期，时间联动 Bug 代码，并提交.
+- [ ] 整理项目 5.0.3 版本，首页代码实现逻辑.
 
 #### 学习
 
-- [x] 看 iview DatePicker 组件的 time-picker-options 的源码实现逻辑.
+- [ ] github 每日自动创建 issue.
+- [ ] 一小时 typescript.
 
 #### 其他
 
-- [x] 骑车半小时.
-- [x] 和朋友来几局 樱熊联萌.
+- [ ] 骑车半小时.
