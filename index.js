@@ -19,6 +19,7 @@ const {
 
 // today date
 const today = createToday()
+console.log(today)
 
 // template content
 const content = createTemplateContent('./template.md')
