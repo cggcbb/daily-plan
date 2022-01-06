@@ -17,6 +17,7 @@ const content = createTemplateContent('./template.md')
 ;(async () => {
   const isTodayTemplate = await isContainTitle('./template.md', today)
   if (!isTodayTemplate) {
+    console.log('not found today template')
     return
   }
   // user info
