@@ -51,10 +51,11 @@ const log = console.log
     if (result.id && result.title) {
       log(chalk.greenBright(`create issue success! title: ${result.title}, body: ${result.body}`))
     } else {
-      log(chalk.redBright(`create issue error! error message: ${JSON.stringify(result)}`))
+      log(chalk.redBright(`create issue error! error message: ${JSON.stringify(result, null, 2)}`))
     }
     return
   }
+
   log(
     chalk.greenBright(
       `load today issue success! issue's title: ${issue.title}, create at: ${createToday(
@@ -67,10 +68,23 @@ const log = console.log
   // check had commented
   const comment = await hasCommented(issue, user)
   if (comment) {
-    await updateComment(comment, content)
-    log(chalk.greenBright(`comment update success! update body: \n\n ${content}`))
+    await handleComment(updateComment, comment, content, false)
   } else {
-    await createComment(issue, content)
-    log(chalk.greenBright(`comment create success! create body: \n\n ${content}`))
+    await handleComment(createComment, comment, content)
+  }
+
+  async function handleComment(fn, comment, content, isCreate = true) {
+    const logMsg = isCreate ? 'create' : 'update'
+
+    const result = await fn(comment, content)
+    if (result.id) {
+      log(chalk.greenBright(`comment ${logMsg} success! update body: \n\n ${content}`))
+    } else {
+      log(
+        chalk.redBright(
+          `comment ${logMsg} error! error message: ${JSON.stringify(result, null, 2)}`
+        )
+      )
+    }
   }
 })()

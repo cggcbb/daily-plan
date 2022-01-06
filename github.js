@@ -83,26 +83,26 @@ async function hasCommented(issue, user) {
 
 // create comment
 async function createComment(issue, body) {
-  const [err, res] = await handleResponse(
+  const [err, result] = await handleResponse(
     octokit.request('POST /repos/{owner}/{repo}/issues/{issue_number}/comments', {
       ...repo,
       issue_number: issue.number,
       body
     })
   )
-  return err ? false : true
+  return err ? err : result.data
 }
 
 // update comment
 async function updateComment(comment, body) {
-  const [err, res] = await handleResponse(
-    octokit.request('PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}', {
+  const [err, result] = await handleResponse(
+    octokit.request('PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}1', {
       ...repo,
       comment_id: comment.id,
       body
     })
   )
-  return err ? false : true
+  return err ? err : result.data
 }
 
 module.exports = {

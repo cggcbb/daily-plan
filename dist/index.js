@@ -89,26 +89,26 @@ async function hasCommented(issue, user) {
 
 // create comment
 async function createComment(issue, body) {
-  const [err, res] = await handleResponse(
+  const [err, result] = await handleResponse(
     octokit.request('POST /repos/{owner}/{repo}/issues/{issue_number}/comments', {
       ...repo,
       issue_number: issue.number,
       body
     })
   )
-  return err ? false : true
+  return err ? err : result.data
 }
 
 // update comment
 async function updateComment(comment, body) {
-  const [err, res] = await handleResponse(
-    octokit.request('PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}', {
+  const [err, result] = await handleResponse(
+    octokit.request('PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}1', {
       ...repo,
       comment_id: comment.id,
       body
     })
   )
-  return err ? false : true
+  return err ? err : result.data
 }
 
 module.exports = {
@@ -7612,10 +7612,11 @@ const log = console.log
     if (result.id && result.title) {
       log(chalk.greenBright(`create issue success! title: ${result.title}, body: ${result.body}`))
     } else {
-      log(chalk.redBright(`create issue error! error message: ${JSON.stringify(result)}`))
+      log(chalk.redBright(`create issue error! error message: ${JSON.stringify(result, null, 2)}`))
     }
     return
   }
+
   log(
     chalk.greenBright(
       `load today issue success! issue's title: ${issue.title}, create at: ${createToday(
@@ -7628,11 +7629,24 @@ const log = console.log
   // check had commented
   const comment = await hasCommented(issue, user)
   if (comment) {
-    await updateComment(comment, content)
-    log(chalk.greenBright(`comment update success! update body: \n\n ${content}`))
+    await handleComment(updateComment, comment, content, false)
   } else {
-    await createComment(issue, content)
-    log(chalk.greenBright(`comment create success! create body: \n\n ${content}`))
+    await handleComment(createComment, comment, content)
+  }
+
+  async function handleComment(fn, comment, content, isCreate = true) {
+    const logMsg = isCreate ? 'create' : 'update'
+
+    const result = await fn(comment, content)
+    if (result.id) {
+      log(chalk.greenBright(`comment ${logMsg} success! update body: \n\n ${content}`))
+    } else {
+      log(
+        chalk.redBright(
+          `comment ${logMsg} error! error message: ${JSON.stringify(result, null, 2)}`
+        )
+      )
+    }
   }
 })()
 
