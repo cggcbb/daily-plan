@@ -1,4 +1,11 @@
-on: [push]
+name: daily plan
+
+on:
+  pull:
+    branches:
+      - main
+  schedule:
+    - cron: '5 16 * * *'
 
 jobs:
   daily_plan_action:
