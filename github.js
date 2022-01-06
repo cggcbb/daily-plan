@@ -14,8 +14,8 @@ const octokit = new Octokit({ auth: token })
 
 // repo
 const repo = {
-  owner: 'cggcbb',
-  repo: 'daily-plan'
+  owner: 'cuixiaorui',
+  repo: 'study-every-day'
 }
 
 // user info
@@ -43,11 +43,11 @@ async function getTodayIssue(formatDate) {
     return null
   }
   const issues = result.data
-  const isExist = exist(
+  const existTitle = exist(
     issues.map(issue => issue.title),
     title => title.includes(formatDate)
   )
-  return isExist ? issues[0] : null
+  return existTitle ? issues.find(issue => issue.title === existTitle) : null
 }
 
 // pull all comments for a issue
