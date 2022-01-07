@@ -70,15 +70,15 @@ const log = console.log
   if (comment) {
     await handleComment(updateComment, comment, content, false)
   } else {
-    await handleComment(createComment, comment, content)
+    await handleComment(createComment, issue, content)
   }
 
-  async function handleComment(fn, comment, content, isCreate = true) {
+  async function handleComment(fn, instance, content, isCreate = true) {
     const logMsg = isCreate ? 'create' : 'update'
 
-    const result = await fn(comment, content)
+    const result = await fn(instance, content)
     if (result.id) {
-      log(chalk.greenBright(`comment ${logMsg} success! update body: \n\n ${content}`))
+      log(chalk.greenBright(`comment ${logMsg} success! ${logMsg} body: \n\n ${content}`))
     } else {
       log(
         chalk.redBright(
