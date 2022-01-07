@@ -7586,13 +7586,6 @@ const content = createTemplateContent('./template.md')
 const log = console.log
 
 ;(async () => {
-  // check today template
-  const isTodayTemplate = await isContainTitle('./template.md', today)
-  if (!isTodayTemplate) {
-    log(chalk.red(`not found today's template ...`))
-    return
-  }
-
   // user info
   const { login: user } = await pullUserInfo()
   if (!user) {
@@ -7625,6 +7618,13 @@ const log = console.log
       )}`
     )
   )
+
+  // check today template
+  const isTodayTemplate = await isContainTitle('./template.md', today)
+  if (!isTodayTemplate) {
+    log(chalk.red(`not found today's template ...`))
+    return
+  }
 
   // check had commented
   const comment = await hasCommented(issue, user)
