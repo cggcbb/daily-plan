@@ -54,7 +54,7 @@ async function readFirstLine(pathToFile) {
 }
 
 function createIssueTitle() {
-  return `【每日计划】 ${createToday()}`
+  return `【每日计划】 ${createToday('YYYY-MM-DD')}`
 }
 
 function createIssueBody() {
