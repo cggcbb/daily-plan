@@ -7581,7 +7581,8 @@ const {
 const today = createToday('YYYY-MM-DD')
 
 // template content
-const content = createTemplateContent('./template.md')
+let content = createTemplateContent('./template.md')
+content = `${content} \n ###### 更新时间：${createToday('YYYY-MM-DD HH:mm:ss')}`
 
 const log = console.log
 
